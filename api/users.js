@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const usersFilePath = path.join(__dirname, '../users.json');
+const usersFilePath = path.join(__dirname, 'users.json');
 
 const loadUsers = () => {
     if (!fs.existsSync(usersFilePath)) {
@@ -22,7 +22,6 @@ module.exports = async (req, res) => {
         const { username, password } = req.body;
 
         if (req.url === '/login') {
-            // Login
             const user = users.find(u => u.username === username && u.password === password);
             if (user) {
                 return res.status(200).json({ success: true, user });
@@ -31,7 +30,6 @@ module.exports = async (req, res) => {
         }
 
         if (req.url === '/register') {
-            // Registration
             if (users.find(u => u.username === username)) {
                 return res.status(400).json({ message: 'Username already exists.' });
             }
